@@ -1,0 +1,30 @@
+
+public class Baseng {
+ 
+	public static stocklib SL=new stocklib();
+	
+  @BeforeTest
+  public void beforeTest() 
+  {
+  SL.Admlgn("admin","master");
+  }
+
+  @AfterTest
+  public void afterTest() 
+  {
+    SL.LogOut();
+  }
+
+  @BeforeSuite
+  public void beforeSuite() throws IOException 
+  {
+  SL.openApp("http://webapp.qedgetech.com");
+  }
+
+  @AfterSuite
+  public void afterSuite() 
+  {
+     SL.AppClose();
+  }
+
+}

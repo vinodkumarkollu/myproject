@@ -1,0 +1,18 @@
+public class pomexe 
+
+{
+	@Test
+public void Lexe()
+{
+	WebDriver driver=new FirefoxDriver();
+	driver.get("http://webapp.qedgetech.com");
+	driver.manage().window().maximize();
+	
+	loginpage LP=PageFactory.initElements(driver,loginpage.class);
+	LP.Adminlgn("admin","master");
+	hpage Hp=PageFactory.initElements(driver,hpage.class);
+	Hp.sup();
+	Hp.pur();
+	
+}
+}

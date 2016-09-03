@@ -1,0 +1,8 @@
+public class Exeng extends Baseng 
+{
+	@Test
+public void Uom()
+{
+	SL.UOM("files1267","sel1267");
+}
+}

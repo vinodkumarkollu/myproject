@@ -1,0 +1,46 @@
+public class Uomnotepad {
+
+	public static void main(String[] args) throws IOException 
+	{
+		
+		stocklib SL=new stocklib();
+		String Res=SL.openApp("http://webapp.qedgetech.com");
+         System.out.println(Res);
+         Res=SL.Admlgn("admin","master");
+	     System.out.println(Res);
+	     
+   //Filepath
+		String Fpath="D:\\user08\\ERP\\src\\com\\stock\\testdata\\Uom.txt";
+ //Creating text file for resuluts
+		String Rpath="D:\\user08\\ERP\\src\\com\\stock\\results\\Uomres.txt";
+		String SD;
+          FileReader Fr=new FileReader(Fpath);
+          BufferedReader Br=new BufferedReader(Fr);
+          String Sread=Br.readLine();
+          System.out.println(Sread);
+          
+          FileWriter Fw=new FileWriter(Rpath);
+          BufferedWriter Bw=new BufferedWriter(Fw);
+          Bw.write(Sread+"%%%"+"Results");
+          Bw.newLine();
+          
+          while((SD=Br.readLine())!=null) 
+          {
+			System.out.println(SD);
+			String SR[]=SD.split("###");
+                     String Uid=SR[0];
+                     System.out.println(Uid);
+                     String Udes=SR[1];
+                  System.out.println(Udes);
+               Res=SL.UOM(Uid,Udes);
+                 System.out.println(Res);
+                 
+                 Bw.write(Uid+"$$$"+Udes+"&&&"+Res);
+                 Bw.newLine();
+                 
+          }
+          Bw.close();
+          Br.close();
+	}
+
+}

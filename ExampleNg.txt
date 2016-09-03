@@ -1,0 +1,19 @@
+public class exampleng 
+{
+	@Test(priority=1)
+public void xyz()
+{
+	Assert.assertEquals("Gmail","Gmail");
+}
+	@Test(priority=3,enabled=false)
+public void abc()
+{
+	Assert.assertEquals("Facebook","Facebook");
+}
+	@Test(priority=2)
+public void pqr()
+{
+	Assert.assertEquals("Naukri","Naukri");
+}
+
+}

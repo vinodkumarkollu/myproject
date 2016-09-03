@@ -1,0 +1,46 @@
+
+public class Exelib {
+
+	public static void main(String[] args) throws IOException 
+	{
+
+		stocklib SL=new stocklib();
+		String Res=SL.openApp("http://webapp.qedgetech.com");
+         System.out.println(Res);
+         Res=SL.Admlgn("admin","master");
+	     System.out.println(Res);
+	     
+	  FileInputStream Fis=new FileInputStream("D:\\user08\\ERP\\src\\com\\stock\\testdata\\Uom.xlsx");
+	  
+	  //Creating Workbook
+	  
+	    XSSFWorkbook WB=new XSSFWorkbook(Fis);
+	    //Worksheet
+	    XSSFSheet WS=WB.getSheet("Uomdata");
+	    int Rc=WS.getLastRowNum();
+	    System.out.println(Rc);
+	    
+	        for (int i = 1; i <=Rc; i++)
+	        {
+	        	XSSFRow WR=WS.getRow(i);
+	    	    XSSFCell WC=WR.getCell(0);
+	    	    XSSFCell WC1=WR.getCell(1);
+	    	    XSSFCell WC2=WR.createCell(2);
+	    	    String Uid=WC.getStringCellValue();
+	    	    String Udes=WC1.getStringCellValue();
+	    	    Res=SL.UOM(Uid,Udes);
+	             System.out.println(Res);
+	             WC2.setCellValue(Res);
+	        }		
+	    
+	    FileOutputStream Fos=new FileOutputStream("D:\\user08\\ERP\\src\\com\\stock\\results\\uomres.xlsx");
+	    WB.write(Fos);
+	    WB.close();
+	    
+	    /*XSSFRow WR=WS.getRow(1);
+	    XSSFCell WC=WR.getCell(0);
+	     Res=WC.getStringCellValue();
+	    System.out.println(Res);*/
+	}
+
+}

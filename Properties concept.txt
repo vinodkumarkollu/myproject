@@ -1,0 +1,50 @@
+public class stocklib 
+{
+public static Properties Pr;
+public static FileInputStream Fis;
+public static WebDriver driver;
+public static String Expval,Actval;
+
+public String openApp(String Url) throws IOException
+{
+	Pr=new Properties();
+	Fis=new FileInputStream("D:\\user08\\ERP\\src\\com\\stock\\properties\\Rep.properties");
+	Pr.load(Fis);
+	Expval="Login";
+	driver=new FirefoxDriver();
+	driver.manage().window().maximize();
+	driver.manage().timeouts().implicitlyWait(40,TimeUnit.SECONDS);
+	driver.get(Url);
+	Actval=driver.findElement(By.id(Pr.getProperty("Login"))).getText();
+    if (Expval.equalsIgnoreCase(Actval))
+    {
+	//System.out.println("pass");
+	  return "Pass";
+    }
+    else
+    {
+    	//System.out.println("Fail");
+       return "Fail";
+    }
+}
+
+public String Admlgn(String Un,String Pwd)
+{
+	Expval="Administrator";
+	driver.findElement(By.id(Pr.getProperty("Reset"))).click();
+	driver.findElement(By.id(Pr.getProperty("Uname"))).sendKeys(Un);
+	driver.findElement(By.id(Pr.getProperty("Pwd"))).sendKeys(Pwd);
+	driver.findElement(By.id(Pr.getProperty("Login"))).click();
+	 Actval=driver.findElement(By.xpath(".//*[@id='msUserName']/font/strong")).getText();
+ 	    if(Expval.equalsIgnoreCase(Actval))
+ 	       {
+ 			//System.out.println("Stock accounting home page displayed");
+ 	      return "pass";
+ 	       }
+ 	       else
+ 	       {
+ 	    	//System.out.println("Stock accounting home page not displayed");
+ 	       return "Fail";
+ 	       }
+}
+}

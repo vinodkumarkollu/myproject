@@ -1,0 +1,35 @@
+
+public class Basicscript {
+
+	public static void main(String[] args)
+	{
+		WebDriver driver=new FirefoxDriver();
+		String Expval="Login";
+		driver.get("http://webapp.qedgetech.com");
+		driver.manage().window().maximize();
+		String Actval=driver.findElement(By.id("btnsubmit")).getText();
+		if (Expval.equalsIgnoreCase(Actval)) 
+		{
+		System.out.println("Application launched");	
+		}
+		else
+		{
+			System.out.println("Application does not launched");
+		}
+		driver.findElement(By.id("btnreset")).click();
+		driver.findElement(By.id("username")).sendKeys("admin");
+		driver.findElement(By.id("password")).sendKeys("master");
+		driver.findElement(By.id("btnsubmit")).click();
+		
+
+		 Actions act=new Actions(driver);
+		 act.moveToElement(driver.findElement(By.xpath(".//*[@id='mi_a_stock_items']/a"))).build().perform();
+		 driver.findElement(By.xpath(".//*[@id='mi_a_stock_categories']/a")).click();
+				 
+	}
+
+}
+//suppliers
+//Stock Catagorie
+//Uom
+//Stock Items

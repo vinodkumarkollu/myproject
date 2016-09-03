@@ -1,0 +1,45 @@
+public class stocklib 
+{
+public static WebDriver driver;
+public static String Expval,Actval;
+
+public String openApp(String Url)
+{
+	Expval="Login";
+	driver=new FirefoxDriver();
+	driver.manage().window().maximize();
+	driver.manage().timeouts().implicitlyWait(40,TimeUnit.SECONDS);
+	driver.get(Url);
+	Actval=driver.findElement(By.id("btnsubmit")).getText();
+    if (Expval.equalsIgnoreCase(Actval))
+    {
+	//System.out.println("pass");
+	  return "Pass";
+    }
+    else
+    {
+    	//System.out.println("Fail");
+       return "Fail";
+    }
+}
+
+public String Admlgn(String Un,String Pwd)
+{
+	Expval="Administrator";
+	driver.findElement(By.id("btnreset")).click();
+	driver.findElement(By.id("username")).sendKeys(Un);
+	driver.findElement(By.id("password")).sendKeys(Pwd);
+	driver.findElement(By.id("btnsubmit")).click();
+	 Actval=driver.findElement(By.xpath(".//*[@id='msUserName']/font/strong")).getText();
+ 	    if(Expval.equalsIgnoreCase(Actval))
+ 	       {
+ 			//System.out.println("Stock accounting home page displayed");
+ 	      return "pass";
+ 	       }
+ 	       else
+ 	       {
+ 	    	//System.out.println("Stock accounting home page not displayed");
+ 	       return "Fail";
+ 	       }
+}
+}

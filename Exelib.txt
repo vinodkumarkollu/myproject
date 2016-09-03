@@ -1,0 +1,393 @@
+public class Exelib {
+
+	public static void main(String[] args) 
+	{
+
+		stocklib SL=new stocklib();
+		String Res=SL.openApp("http://webapp.qedgetech.com");
+         System.out.println(Res);
+         Res=SL.Admlgn("admin","master");
+	     System.out.println(Res);
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+public String createSupplier(String Supplier Name,String Address,String Ci
+			String Contact Person,String Phone Number,String Email,String Mobile Number,String Notes)
+
+
+
+
+
+
+
+package com.stockaccounting.testourscripts;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.server.browserlaunchers.Sleeper;
+import org.openqa.selenium.support.ui.Select;
+
+public class BasicsScripts
+{
+
+	public static void main(String[] args) 
+	{
+		String expTitle,actTitle;
+		expTitle="Stock Accounting System";
+		
+		
+		WebDriver driver=new FirefoxDriver();
+		driver.get("http://webapp.qedgetech.com");
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		actTitle=driver.getTitle();
+		if (expTitle.equalsIgnoreCase(actTitle)) 
+		{
+			System.out.println("launch app is successful");
+			
+		}
+		else
+		{
+			System.out.println("launch aap not successful");
+			
+		}
+		
+		driver.manage().window().maximize();
+		
+		driver.findElement(By.id("btnreset")).click();
+		
+		driver.findElement(By.id("username")).sendKeys("admin");
+		driver.findElement(By.id("password")).sendKeys("master");
+		driver.findElement(By.id("btnsubmit")).click();
+		
+		driver.findElement(By.linkText("Suppliers")).click();
+	    Sleeper.sleepTightInSeconds(2);
+		driver.findElement(By.xpath(".//*[@id='ewContentColumn']/div[3]/div[1]/div[1]/div[1]/div/a/.")).click();
+	    Sleeper.sleepTightInSeconds(2);
+		driver.findElement(By.xpath(".//*[@id='x_Supplier_Name']")).sendKeys("Nitesh");
+		
+		driver.findElement(By.id("x_Address")).sendKeys("nest app ameerpet hyderabad");
+		driver.findElement(By.id("x_City")).sendKeys("Hyderabad");
+		driver.findElement(By.id("x_Country")).sendKeys("India");
+		driver.findElement(By.id("x_Contact_Person")).sendKeys("Manish");
+		driver.findElement(By.id("x_Phone_Number")).sendKeys("8019496016");
+		driver.findElement(By.id("x__Email")).sendKeys("niteshbutola5@gmail.com");
+		driver.findElement(By.id("x_Mobile_Number")).sendKeys("9456433469");
+		driver.findElement(By.id("x_Notes")).sendKeys("hi supplier is created");
+		driver.findElement(By.id("btnAction")).click();
+		
+		
+		driver.findElement(By.xpath("html/body/div[17]/div[2]/div/div[4]/div[2]/button[1]")).click();
+		driver.findElement(By.xpath("html/body/div[.]/div[2]/div/div[4]/div[2]/button")).click();
+		
+		Actions act=new Actions(driver);
+		act.moveToElement(driver.findElement(By.xpath(".//*[@id='mi_a_stock_items']/a"))).build().perform();
+		driver.findElement(By.xpath(".//*[@id='mi_a_stock_categories']/a")).click();
+	    driver.findElement(By.xpath(".//*[@id='ewContentColumn']/div[3]/div[1]/div[1]/div[1]/div/a")).click();
+	    driver.findElement(By.id("x_Category_Name")).sendKeys("galaxy");
+	    driver.findElement(By.xpath(".//*[@id='btnAction']")).click();
+	    driver.findElement(By.xpath("html/body/div[17]/div[2]/div/div[4]/div[2]/button[1]")).click();
+	    Sleeper.sleepTightInSeconds(4);
+	    driver.findElement(By.xpath("html/body/div[.]/div[2]/div/div[4]/div[2]/button")).click();
+		
+	    act.moveToElement(driver.findElement(By.xpath(".//*[@id='mi_a_stock_items']/a"))).build().perform();
+	    driver.findElement(By.xpath(".//*[@id='mi_a_unit_of_measurement']/a")).click();
+	    driver.findElement(By.xpath(".//*[@id='ewContentColumn']/div[3]/div[1]/div[1]/div[1]/div/a")).click();
+	    driver.findElement(By.xpath(".//*[@id='x_UOM_ID']")).sendKeys("7338");
+	    driver.findElement(By.xpath(".//*[@id='x_UOM_Description']")).sendKeys("mobiles");
+	    driver.findElement(By.xpath(".//*[@id='btnAction']")).click();
+	    driver.findElement(By.xpath("html/body/div[.]/div[2]/div/div[4]/div[2]/button[1]")).click();
+	    driver.findElement(By.xpath("html/body/div[3]/div[2]/div/div[4]/div[2]/button")).click();
+	    
+		
+		
+		driver.findElement(By.xpath(".//*[@id='mi_a_stock_items']/a")).click();
+		driver.findElement(By.xpath(".//*[@id='ewContentColumn']/div[3]/div[1]/div[1]/div[1]/div/a")).click();
+		Sleeper.sleepTightInSeconds(2);
+		Select sl=new Select(driver.findElement(By.xpath(".//*[@id='x_Category']")));
+		sl.selectByVisibleText("galaxy");
+		Select dp=new Select(driver.findElement(By.xpath(".//*[@id='x_Supplier_Number']")));
+		dp.selectByVisibleText("24");
+		driver.findElement(By.xpath(".//*[@id='x_Stock_Name']")).sendKeys("mobiles");
+		Select dr=new Select(driver.findElement(By.xpath(".//*[@id='x_Unit_Of_Measurement']")));
+		dr.selectByVisibleText("mobile 043");
+		driver.findElement(By.xpath(".//*[@id='x_Purchasing_Price']")).sendKeys("5000");
+		driver.findElement(By.xpath(".//*[@id='x_Selling_Price']")).sendKeys("6000");
+		driver.findElement(By.xpath(".//*[@id='x_Notes']")).sendKeys("stock sold");
+		
+		driver.findElement(By.xpath(".//*[@id='btnAction']")).click();
+		driver.findElement(By.xpath("html/body/div[.]/div[2]/div/div[4]/div[2]/button[1]")).click();
+		driver.findElement(By.xpath("html/body/div[.]/div[2]/div/div[4]/div[2]/button")).click();
+		
+		
+		
+		
+		
+		
+		
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package com.stockaccounting.master;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.server.browserlaunchers.Sleeper;
+
+public class Stocklib
+{
+	public static WebDriver driver;
+	public static String Expval,Actval;
+	public String openApp(String Url)
+	{
+		Expval="Login";
+		driver=new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.get(Url);
+	 	Actval=driver.findElement(By.id("btnsubmit")).getText();
+        if (Expval.equalsIgnoreCase(Actval)) 
+        {
+        	System.out.println("Pass");
+        	return "Pass";
+			
+		}
+        else
+        {
+        	System.out.println("Fail");
+        	return "Fail";
+        }
+	
+	}   
+	public  String admlgn(String uname,String pwd)
+	{
+		Expval="Dashboard";
+		driver.findElement(By.id("btnreset")).click();
+		driver.findElement(By.id("username")).sendKeys(uname);
+		driver.findElement(By.id("password")).sendKeys(pwd);
+		driver.findElement(By.id("btnsubmit")).click();
+		Sleeper.sleepTightInSeconds(2);
+		Actval=driver.findElement(By.linkText("Dashboard")).getText();
+		if (Expval.equalsIgnoreCase(Actval))
+		{
+			//System.out.println("stock accounting home page displayed");
+			return "stock accounting home page displayed";
+			
+		}
+		else
+		{
+			//System.out.println("stock accounting home page didn't display");
+		   return "stock accounting home page didn't display";
+		}
+	}
+ 
+	public String createSupplier(String SupplierName,String Address,String City,String Country,
+			String ContactPerson,String PhoneNumber,String Email,String MobileNumber,String Notes)
+	{
+		Expval="Add Succeeded";
+		driver.findElement(By.linkText("Suppliers")).click();
+		driver.findElement(By.xpath("/html/body/div[2]/div[3]/div/div/div[3]/div[1]/div[1]/div[1]/div/a")).click();
+		driver.findElement(By.id("x_Supplier_Name")).sendKeys(SupplierName);
+		driver.findElement(By.id("x_Address")).sendKeys(Address);
+		driver.findElement(By.id("x_City")).sendKeys(City);
+		driver.findElement(By.id("x_Country")).sendKeys(Country);
+		driver.findElement(By.id("x_Contact_Person")).sendKeys(ContactPerson);
+		driver.findElement(By.id("x_Phone_Number")).sendKeys(PhoneNumber);
+		driver.findElement(By.id("x__Email")).sendKeys(Email);
+		driver.findElement(By.id("x_Mobile_Number")).sendKeys(MobileNumber);
+		driver.findElement(By.id("x_Notes")).sendKeys(Notes);
+		driver.findElement(By.id("btnAction")).click();
+		driver.findElement(By.xpath("/html/body/div[.]/div[2]/div/div[4]/div[2]/button[1]")).click();
+		driver.findElement(By.xpath("/html/body/div[17]/div[2]/div/div[4]/div[2]/button")).click();
+        Actval=driver.findElement(By.xpath("html/body/div[3]/div[2]/div/div[4]/div[2]/button")).getText();
+        if (Expval.equalsIgnoreCase(Actval))
+        {
+        	return "supplier created";
+			
+		}
+        else
+        {
+        	return "supplier did nor create";
+        }
+
+}
+
+public String createStockitems()
+{
+	Expval="Add Succeeded";
+	driver.findElement(By.xpath(".//*[@id='mi_a_stock_items']/a")).click();
+	driver.findElement(By.xpath(".//*[@id='ewContentColumn']/div[3]/div[1]/div[1]/div[1]/div/a/span")).click();
+	Sleeper.sleepTightInSeconds(2);
+	
+	
+	
+	
+	
+	
+	
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package com.stockaccounting.master;
+
+public class Executablelib 
+{
+
+	public static void main(String[] args)
+	{
+		String res;
+		Stocklib sl=new Stocklib();
+		res=sl.openApp("http://webapp.qedgetech.com");
+		System.out.println(res);
+		res=sl.admlgn("admin","master");
+		System.out.println(res);
+		res=sl.createSupplier("nitesh","ameerpet","hyderabad","india","amit","8859900215","nit.7@gmail.com","2546985695","product sold");
+		System.out.println(res);
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+	
+public class uomng extends BaseNg 
+{
+	@Test(dataProvider="Udata")
+public void uom(String Uid,String Udes)
+{
+	SL.UOM(Uid,Udes);
+}
+@DataProvider
+
+public Object[][] Udata()
+{
+	Object[][] Obj=new Object[3][2];
+	
+	Obj[0][0]="100GB23";
+	Obj[0][1]="selenium12";
+ 
+	Obj[1][0]="100GB13";
+	Obj[1][1]="selenium12";
+
+	Obj[2][0]="100GB03";
+	Obj[2][1]="selenium12";
+
+     return Obj;
+}
+	
+}

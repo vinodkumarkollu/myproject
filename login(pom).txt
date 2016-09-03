@@ -1,0 +1,23 @@
+
+public class loginpage 
+{
+   @FindBy(id="username")
+    WebElement Uname;
+
+    @FindBy(id="password")
+     WebElement Pwd;
+
+    @FindBy(id="btnsubmit")
+	WebElement Login;
+
+   @FindBy(id="btnreset")
+   WebElement Reset;
+
+public void Adminlgn(String Un,String Pswd)
+{
+	Reset.click();
+	Uname.sendKeys(Un);
+	Pwd.sendKeys(Pswd);
+	Login.click();
+}
+}
