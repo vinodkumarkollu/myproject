@@ -1,0 +1,267 @@
+package com.stock.master;
+
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.server.browserlaunchers.Sleeper;
+import org.openqa.selenium.support.ui.Select;
+
+public class stocklib 
+{
+public static Properties Pr;
+public static FileInputStream Fis;
+public static WebDriver driver;
+public static String Expval,Actval;
+public static List<WebElement> okbs;
+public String openApp(String Url) throws IOException
+{
+	Pr=new Properties();
+	Fis=new FileInputStream("D:\\user08\\ERP\\src\\com\\stock\\Properties\\Rep.Properties");
+	Pr.load(Fis);
+	Expval="Login";
+	driver=new FirefoxDriver();
+	driver.manage().window().maximize();
+	driver.manage().timeouts().implicitlyWait(40,TimeUnit.SECONDS);
+	driver.get(Url);
+	Actval=driver.findElement(By.id(Pr.getProperty("Login"))).getText();
+    if (Expval.equalsIgnoreCase(Actval))
+    {
+	//System.out.Println("pass");
+	  return "Pass";
+    }
+    else
+    {
+    	//System.out.Println("Fail");
+       return "Fail";
+    }
+}
+
+public String Admlgn(String Un,String Pwd)
+{
+	Expval="Administrator";
+	driver.findElement(By.id(Pr.getProperty("Reset"))).click();
+	driver.findElement(By.id(Pr.getProperty("Uname"))).sendKeys(Un);
+	driver.findElement(By.id(Pr.getProperty("Pwd"))).sendKeys(Pwd);
+	driver.findElement(By.id(Pr.getProperty("Login"))).click();
+	 Actval=driver.findElement(By.xpath(".//*[@id='msUserName']/font/strong")).getText();
+ 	    if(Expval.equalsIgnoreCase(Actval))
+ 	       {
+ 			//System.out.Println("Stock accounting home page displayed");
+ 	      return "pass";
+ 	       }
+ 	       else
+ 	       {
+ 	    	//System.out.Println("Stock accounting home page not displayed");
+ 	       return "Fail";
+ 	       }
+}
+
+
+public String ERP_SupplierCreation(String Sname,String Sadd,String Scity,String SCountry,String Scp,String Sphnum,String Semail,String Smob,String Snotes)
+{
+	  Expval="Add succeeded";
+	  driver.findElement(By.linkText(Pr.getProperty("SL_linkText"))).click();
+      driver.findElement(By.xpath(Pr.getProperty("SCB_xpath"))).click();
+      //System.out.Println(Pr.getProperty("SN_id"));
+ 
+      driver.findElement(By.name(Pr.getProperty("SN_name"))).sendKeys(Sname);
+ 
+      driver.findElement(By.id(Pr.getProperty("Sadd_id"))).sendKeys(Sadd);
+      driver.findElement(By.id(Pr.getProperty("Scity_id"))).sendKeys(Scity);
+      driver.findElement(By.id(Pr.getProperty("Scntry_id"))).sendKeys(SCountry);
+      driver.findElement(By.id(Pr.getProperty("Scprn_id"))).sendKeys(Scp);
+      driver.findElement(By.id(Pr.getProperty("Spn_id"))).sendKeys(Sphnum);
+      driver.findElement(By.id(Pr.getProperty("Semail_id"))).sendKeys(Semail);
+      driver.findElement(By.id(Pr.getProperty("Smn_id"))).sendKeys(Smob);
+      driver.findElement(By.id(Pr.getProperty("Snote_id"))).sendKeys(Snotes);
+      driver.findElement(By.id(Pr.getProperty("SCB_id"))).click();
+      
+      driver.findElement(By.xpath(Pr.getProperty("Scok2_xpath"))).click();
+      Sleeper.sleepTightInSeconds(2);
+      
+      Actval=driver.findElement(By.xpath(Pr.getProperty("Ssmsg_xpath"))).getText();
+      
+      
+      driver.findElement(By.xpath(Pr.getProperty("Ssok2_xpath"))).click();
+      
+     
+      
+      if (Expval.equalsIgnoreCase(Actval)) 
+      {
+    	  return "Pass";
+	  } 
+      else
+      {
+    	  return "fail";
+	  }
+      
+}
+public String UOM(String UOM_id,String UOM_descrptn)
+
+	{
+		
+		  driver.findElement(By.xpath(".//*[@id='mi_a_stock_items']/a")).click();
+	      Actions act= new Actions(driver);
+	      act.moveToElement(driver.findElement(By.xpath(".//*[@id='mi_a_stock_items']/a")));
+	      act.moveToElement(driver.findElement(By.xpath(".//*[@id='mi_a_unit_of_measurement']/a")));
+	      act.click();
+	      act.build().perform();
+	      driver.findElement(By.xpath(".//*[@id='ewContentColumn']/div[3]/div[1]/div[1]/div[1]/div/a/span")).click();
+	      driver.findElement(By.id("x_UOM_ID")).sendKeys(UOM_id);
+	      driver.findElement(By.id("x_UOM_Description")).sendKeys(UOM_descrptn);
+	      driver.findElement(By.id("btnAction")).click();
+	      driver.findElement(By.xpath(".//*[@class='ajs-button btn btn-Primary']")).click();
+	      Sleeper.sleepTightInSeconds(2);
+	      driver.findElement(By.xpath(".//*[@class='ajs-button btn btn-Primary']")).click();
+	      
+	      Expval="Add succeeded";
+	      Actval=driver.findElement(By.xpath("html/body/div[17]/div[2]/div/div[3]/div/div")).getText();
+	      if (Expval.equalsIgnoreCase(Actval)) 
+	      {
+	    	  return "Pass";
+		  } 
+	      else
+	      {
+	    	  return "fail";
+		  }
+	}
+
+    public String ERP_StockCategoryCreation(String Cname)
+     {
+	 Expval="Add succeeded";
+	 
+      Actions act= new Actions(driver);
+      WebElement Sitm=driver.findElement(By.xpath(Pr.getProperty("Sil_xpath")));
+      
+      act.moveToElement(Sitm).build().perform();
+      
+      driver.findElement(By.xpath(Pr.getProperty("Cl_Xpath"))).click();
+      
+     
+      driver.findElement(By.xpath(Pr.getProperty("CB_Xpath"))).click();
+      driver.findElement(By.id(Pr.getProperty("Cn_id"))).sendKeys(Cname);
+      driver.findElement(By.id(Pr.getProperty("CCB_id"))).click();
+      
+      
+      driver.findElement(By.xpath(Pr.getProperty("Ccok_xpath"))).click();
+      Sleeper.sleepTightInSeconds(2);
+      
+      Actval=driver.findElement(By.xpath(Pr.getProperty("Csmsg_xpath"))).getText();
+     
+      
+      driver.findElement(By.xpath(Pr.getProperty("Csok_xpath"))).click();
+      
+      if (Expval.equalsIgnoreCase(Actval)) 
+      {
+    	  return "Pass";
+	  } 
+      else
+      {
+    	  return "fail";
+	  }
+}
+    
+    public String ERP_StockItemCreation(String Scat,String SupN,String Sn,String UomID,String pp,String sp,String Snote)
+	{
+		
+		  Expval="Add succeeded";
+		  
+
+	      driver.findElement(By.xpath(Pr.getProperty("Sil_xpath"))).click();
+	      
+	   
+	      driver.findElement(By.xpath(Pr.getProperty("SiB_xpath"))).click();
+	      
+	      WebElement cat=driver.findElement(By.id(Pr.getProperty("C_id")));
+	      Select sc= new Select(cat);
+	      sc.selectByVisibleText(Scat);
+	      
+	      
+	      WebElement Snum=driver.findElement(By.id(Pr.getProperty("SN_id")));
+	      Select SopNm= new Select(Snum);
+	      SopNm.selectByVisibleText(SupN);
+	      
+	     
+	      driver.findElement(By.id(Pr.getProperty("StockNam_id"))).sendKeys(Sn);
+	      
+	      WebElement Uom=driver.findElement(By.name(Pr.getProperty("Uom_name")));
+	      Select um= new Select(Uom);
+	     // System.out.Println(um.getOptions().size());
+	      //um.selectByVisibleText(UomID);
+	      um.selectByValue(UomID);
+	      
+	      driver.findElement(By.id(Pr.getProperty("SPrp_id"))).sendKeys(pp);
+	      driver.findElement(By.id(Pr.getProperty("Sslp_id"))).sendKeys(sp);
+	      driver.findElement(By.id(Pr.getProperty("StNote_id"))).sendKeys(Snote);
+	      driver.findElement(By.id(Pr.getProperty("StCB_id"))).click();
+	      
+	      driver.findElement(By.xpath(Pr.getProperty("StCok2_xpath"))).click();
+	      Sleeper.sleepTightInSeconds(2);
+	      
+	      Actval=driver.findElement(By.xpath(Pr.getProperty("Stmsg_xpath"))).getText();
+	      
+	      driver.findElement(By.xpath(Pr.getProperty("StSok2_xpath"))).click();
+	      
+	    
+	      
+	      if (Expval.equalsIgnoreCase(Actval)) 
+	      {
+	    	  return "Pass";
+		  } 
+	      else
+	      {
+	    	  return "fail";
+		  }
+	}
+
+public String LogOut()
+{
+	 
+	 driver.findElement(By.id(Pr.getProperty("LOB_id"))).click();
+	
+	
+	   //okbs=driver.findElements(By.xpath(Pr.getProperty("LOCok_xpath")));
+		okbs=driver.findElements(By.xpath(Pr.getProperty("LOCok_xpath")));
+	    
+	    for (int i = 0; i<okbs.size(); i++) 
+	    {
+			if (okbs.get(i).getText().equalsIgnoreCase("OK!")) 
+			{
+				okbs.get(i).click();
+				break;
+			}
+		}
+		
+		Sleeper.sleepTightInSeconds(3);
+		Expval="Login";
+		Actval=driver.findElement(By.id("btnsubmit")).getText();
+		Sleeper.sleepTightInSeconds(3);
+		System.out.println(Actval);
+	    
+	    if (Expval.equalsIgnoreCase(Actval)) 
+	    {
+	    	return "pass";	
+		}
+	    else
+	    {
+	    	return "fail";
+	    }
+	 
+}
+
+public void AppClose()
+{
+	 driver.close();
+}
+
+}
